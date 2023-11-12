@@ -79,7 +79,7 @@ export class HomeService {
                 amount: ingredientNutrientsMap.get('208')?.amount || 0,
                 unit: 'kcal'
               },
-              carbohidrates: {
+              carbohydrates: {
                 amount: ingredientNutrientsMap.get('205')?.amount || 0,
                 unit: 'g'
               },

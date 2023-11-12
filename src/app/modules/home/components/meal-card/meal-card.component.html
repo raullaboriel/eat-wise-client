@@ -1,6 +1,8 @@
 <p-card header="{{totalCalories}} Calorias" class="border-round-xl meal-card"
     [style]="{ width: '360px', height: '100%' }">
     <div class="flex flex-wrap gap-2 ingredients">
-        <meal-card-ingredient [ingredient]="ingredient" *ngFor="let ingredient of meal.ingredients" />
+        <meal-card-ingredient [totalCalories]="totalCalories" [totalProteins]="totalProteins"
+            [totalCarbohydrates]="totalCarbohydrates" [totalSugars]="totalSugars" [ingredient]="ingredient"
+            *ngFor="let ingredient of meal.ingredients" />
     </div>
 </p-card>

@@ -9,14 +9,15 @@ import { HomeService } from './services/home.service';
 })
 export class HomeComponent implements OnInit {
   meals: Meal[] = [];
+  isLoading: boolean = true;
 
   constructor(private homeService: HomeService) {
   }
 
   ngOnInit(): void {
     this.homeService.getMeals().subscribe((data) => {
-      console.log(data)
       this.meals = [...data];
+      this.isLoading = false;
     });
   }
 }

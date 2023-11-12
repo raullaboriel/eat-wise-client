@@ -1,4 +1,43 @@
-<h2>Comidas de hoy</h2>
-<div class="flex gap-3">
-    <home-meal-card [meal]="meal" *ngFor=" let meal of meals" />
+<div class="flex flex-column gap-3 mt-4 p-4">
+    <div class="flex flex-row justify-content-end">
+        <p-button>
+            <i class="fa-solid fa-plus mr-2"></i>
+            Agregar comida
+        </p-button>
+    </div>
+    <p-card header="Calorias" subheader="Restantes = Meta - Consumidas">
+        <div class="flex flex-row gap-4">
+            <circle-progress [percent]="85" [title]="'1000'" titleFontSize="26" subtitle="Restantes"
+                subtitleColor="dark" subtitleFontWeight="600" titleFontWeight="900" [radius]="100"
+                [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#237cf1'"
+                [innerStrokeColor]="'#e9e9ee'" [animation]="true" [animationDuration]="300"></circle-progress>
+            <div class="flex flex-column md:flex-row gap-4 w-full justify-content-between align-items-start">
+                <div class="flex flex-row gap-3 align-items-center stat">
+                    <i class="fa-solid fa-flag"></i>
+                    <div class="flex flex-column gap-1">
+                        <span>Meta</span>
+                        <span>1000</span>
+                    </div>
+                </div>
+                <div class="flex flex-row gap-3 align-items-center stat">
+                    <i class="fa-solid fa-utensils"></i>
+                    <div class="flex flex-column gap-1">
+                        <span>Comidas</span>
+                        <span>1000</span>
+                    </div>
+                </div>
+                <div class="flex flex-row gap-3 align-items-center stat">
+                </div>
+            </div>
+        </div>
+    </p-card>
+    <h2>Comidas de hoy</h2>
+    <div class="flex gap-3 flex-wrap">
+        <ng-container *ngIf="isLoading">
+            <meal-card-skeleton />
+            <meal-card-skeleton />
+            <meal-card-skeleton />
+        </ng-container>
+        <home-meal-card [meal]="meal" *ngFor=" let meal of meals" />
+    </div>
 </div>

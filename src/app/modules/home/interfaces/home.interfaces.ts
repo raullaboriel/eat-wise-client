@@ -21,7 +21,7 @@ export interface Ingredient extends IngredienBase {
     servingSize: number;
     nutrients: {
         calories: Nutrient;
-        carbohidrates: Nutrient;
+        carbohydrates: Nutrient;
         proteins: Nutrient;
         sugars: Nutrient;
     }

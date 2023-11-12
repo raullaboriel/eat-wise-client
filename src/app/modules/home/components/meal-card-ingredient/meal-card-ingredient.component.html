@@ -1,35 +1,49 @@
-<p-chip label="{{detailedIngredient?.description}}" (click)="op.toggle($event)"></p-chip>
+<p-chip label="{{ingredient.description}}" (click)="op.toggle($event)"></p-chip>
 <p-overlayPanel #op>
-    <div class="flex align-items-center gap-2" *ngIf="detailedIngredient?.nutrients?.calories">
-        <p-knob id="Calorias-knob" [ngModel]="100" [readonly]="true" [size]="50" />
+    <div class="flex align-items-center gap-2" *ngIf="ingredient.nutrients.calories">
+        <p-knob id="Calorias-knob" [ngModel]="((ingredient.nutrients.calories.amount/totalCalories)*100).toFixed(2)"
+            [readonly]="true" [size]="50" />
         <label>
-            {{detailedIngredient?.nutrients?.calories?.amount}}
-            {{detailedIngredient?.nutrients?.calories?.unit}}
-            <span>Calorias</span>
+            {{ingredient.nutrients.calories.amount}}
+            {{ingredient.nutrients.calories.unit}}
+            <span>Calorias<i class="fa-solid fa-fire ml-2"></i></span>
         </label>
     </div>
-    <div class="flex align-items-center gap-2" *ngIf="detailedIngredient?.nutrients?.carbohidrates">
-        <p-knob id="Calorias-knob" [ngModel]="100" [readonly]="true" [size]="50" />
+    <div class="flex align-items-center gap-2" *ngIf="ingredient.nutrients.carbohydrates">
+        <p-knob id="Calorias-knob"
+            [ngModel]="((ingredient.nutrients.carbohydrates.amount/totalCarbohydrates)*100).toFixed(2)"
+            [readonly]="true" [size]="50" />
         <label>
-            {{detailedIngredient?.nutrients?.carbohidrates?.amount}}
-            {{detailedIngredient?.nutrients?.proteins?.unit}}
-            <span>Carbohidratos</span>
+            {{ingredient.nutrients.carbohydrates.amount}}
+            {{ingredient.nutrients.carbohydrates.unit}}
+            <span>
+                Carbohidratos
+                <i class="fa-solid fa-bowl-rice ml-2"></i>
+            </span>
         </label>
     </div>
-    <div class="flex align-items-center gap-2" *ngIf="detailedIngredient?.nutrients?.proteins?.amount">
-        <p-knob id="Calorias-knob" [ngModel]="100" [readonly]="true" [size]="50" />
+    <div class="flex align-items-center gap-2" *ngIf="ingredient.nutrients.proteins.amount">
+        <p-knob id="Calorias-knob" [ngModel]="((ingredient.nutrients.proteins.amount/totalProteins)*100).toFixed(2)"
+            [readonly]="true" [size]="50" />
         <label>
-            {{detailedIngredient?.nutrients?.proteins?.amount}}
-            {{detailedIngredient?.nutrients?.proteins?.unit}}
-            <span>Proteinas</span>
+            {{ingredient.nutrients.proteins.amount}}
+            {{ingredient.nutrients.proteins.unit}}
+            <span>
+                Proteinas
+                <i class="fa-solid fa-dna ml-2"></i>
+            </span>
         </label>
     </div>
-    <div class="flex align-items-center gap-2" *ngIf="detailedIngredient?.nutrients?.sugars?.amount">
-        <p-knob id="Calorias-knob" [ngModel]="100" [readonly]="true" [size]="50" />
+    <div class="flex align-items-center gap-2" *ngIf="ingredient.nutrients.sugars.amount">
+        <p-knob id="Calorias-knob" [ngModel]="((ingredient.nutrients.sugars.amount/totalSugars)*100).toFixed(2)"
+            [readonly]="true" [size]="50" />
         <label>
-            {{detailedIngredient?.nutrients?.sugars?.amount}}
-            {{detailedIngredient?.nutrients?.sugars?.unit}}
-            <span>Azucares</span>
+            {{ingredient.nutrients.sugars.amount}}
+            {{ingredient.nutrients.sugars.unit}}
+            <span>
+                Azucares
+                <i class="fa-solid fa-cubes-stacked ml-2"></i>
+            </span>
         </label>
     </div>
 </p-overlayPanel>
