@@ -1,0 +1,1 @@
+export type ModalToggle = (open?: boolean) => void;

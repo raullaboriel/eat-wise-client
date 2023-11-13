@@ -9,7 +9,16 @@ import { HomeService } from './services/home.service';
 })
 export class HomeComponent implements OnInit {
   meals: Meal[] = [];
+  isAddMealModalVisible: boolean = false;
   isLoading: boolean = true;
+
+  showAddMealModal(): void {
+    this.isAddMealModalVisible = true;
+  }
+
+  onDialogClose(event: any) {
+    this.isAddMealModalVisible = event;
+  }
 
   constructor(private homeService: HomeService) {
   }

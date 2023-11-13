@@ -1,6 +1,6 @@
 <div class="flex flex-column gap-3 mt-4 p-4">
     <div class="flex flex-row justify-content-end">
-        <p-button>
+        <p-button (click)="showAddMealModal()">
             <i class="fa-solid fa-plus mr-2"></i>
             Agregar comida
         </p-button>
@@ -41,3 +41,4 @@
         <home-meal-card [meal]="meal" *ngFor=" let meal of meals" />
     </div>
 </div>
+<add-meal-modal [visible]="isAddMealModalVisible" (visibleChange)="onDialogClose($event)" />
