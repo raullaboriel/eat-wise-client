@@ -18,6 +18,11 @@ import { MealCardSkeletonComponent } from './components/meal-card-skeleton/meal-
 import { MealCardIngredientSkeletonComponent } from './components/meal-card-ingredient-skeleton/meal-card-ingredient-skeleton.component';
 import { AddMealModalComponent } from './components/add-meal-modal/add-meal-modal.component';
 
+import { ButtonModule } from 'primeng/button';
+import { HomeComponent } from './home.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
     MealCardComponent,
@@ -25,6 +30,7 @@ import { AddMealModalComponent } from './components/add-meal-modal/add-meal-moda
     MealCardSkeletonComponent,
     MealCardIngredientSkeletonComponent,
     AddMealModalComponent,
+    HomeComponent,
   ],
   providers: [
     HomeService,
@@ -32,6 +38,7 @@ import { AddMealModalComponent } from './components/add-meal-modal/add-meal-moda
   imports: [
     CommonModule,
     CardModule,
+    ButtonModule,
     ChipModule,
     OverlayPanelModule,
     BrowserAnimationsModule,
@@ -39,12 +46,22 @@ import { AddMealModalComponent } from './components/add-meal-modal/add-meal-moda
     FormsModule,
     HttpClientModule,
     SkeletonModule,
-    DialogModule
-  ],
-  exports: [
-    MealCardComponent,
-    MealCardSkeletonComponent,
-    AddMealModalComponent
+    DialogModule,
+    RouterModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 60,
+      space: -10,
+      outerStrokeWidth: 10,
+      innerStrokeWidth: 10,
+      animateTitle: false,
+      animationDuration: 1000,
+      showUnits: false,
+      showBackground: false,
+      clockwise: false,
+      startFromZero: false,
+      lazy: true,
+    })
   ]
 })
 export class HomeModule { }

@@ -1,0 +1,19 @@
+<div class="h-full w-full flex flex-row">
+    <div style="width: 100px;" class="surface-card flex flex-column align-items-center pt-5 sidebar">
+        <ul class="list-none p-0 m-0 flex flex-column">
+            <li>
+                <a routerLink="/">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/private/meal">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="w-full overflow-y-auto">
+        <router-outlet></router-outlet>
+    </div>
+</div>
