@@ -1,10 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    padding: 10px;
+    background-color: #f9f9f9 !important;
+    height: 100vh;
+    margin: 0px;
+    display: flex;
+    width: 100%;
 }
 
-body,
-p-element {
-    font-family: 'Poppins', sans-serif !important;
-
+app-root {
+    height: 100%;
+    width: 100%;
 }
