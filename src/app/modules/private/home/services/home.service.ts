@@ -15,16 +15,6 @@ export class HomeService {
       withCredentials: true
     })
       .pipe(
-        /*  map(meals =>
-           meals.map(meal => ({
-             id: meal._id,
-             date: new Date(meal.date),
-             ingredients: meal.ingredients.map((ingredient: any): IngredienBase => ({
-               id: ingredient._id,
-               fdcId: ingredient.fdcId,
-               amount: ingredient.amount
-             }))
-           })) */
         mergeMap(meals =>
           forkJoin(
             meals.map(meal =>

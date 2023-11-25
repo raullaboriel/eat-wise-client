@@ -9,6 +9,9 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KnobModule } from 'primeng/knob';
 import { DialogModule } from 'primeng/dialog';
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { FormsModule } from '@angular/forms';
 import { HomeService } from './services/home.service';
@@ -18,10 +21,13 @@ import { MealCardSkeletonComponent } from './components/meal-card-skeleton/meal-
 import { MealCardIngredientSkeletonComponent } from './components/meal-card-ingredient-skeleton/meal-card-ingredient-skeleton.component';
 import { AddMealModalComponent } from './components/add-meal-modal/add-meal-modal.component';
 
-import { ButtonModule } from 'primeng/button';
 import { HomeComponent } from './home.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { RouterModule } from '@angular/router';
+import { FoodSearchComponent } from './components/food-search/food-search.component';
+import { FoodService } from './services/food.service';
+
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -31,9 +37,11 @@ import { RouterModule } from '@angular/router';
     MealCardIngredientSkeletonComponent,
     AddMealModalComponent,
     HomeComponent,
+    FoodSearchComponent,
   ],
   providers: [
     HomeService,
+    FoodService
   ],
   imports: [
     CommonModule,
@@ -48,8 +56,10 @@ import { RouterModule } from '@angular/router';
     SkeletonModule,
     DialogModule,
     RouterModule,
+    VirtualScrollerModule,
+    InfiniteScrollModule,
+    InputTextModule,
     NgCircleProgressModule.forRoot({
-      // set defaults here
       radius: 60,
       space: -10,
       outerStrokeWidth: 10,

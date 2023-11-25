@@ -1,0 +1,20 @@
+<span class="p-input-icon-left my-1">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText (ngModelChange)="onQueryChange($event)" [(ngModel)]="query" />
+</span>
+<div class="search-results flex flex-column gap-3" infiniteScroll [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="500" (scrolled)="onScroll()" [scrollWindow]="false">
+    <div class="flex flex-column w-full" *ngFor="let food of foods">
+        <div class="flex justify-content-between align-content-center w-full">
+            <div class="flex flex-column gap-2">
+                <span class="font-bold text-truncate">{{food.description}}</span>
+                <span>{{food.foodCategory}}</span>
+            </div>
+            <div>
+                {{food.fdcId}}
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading">Loading...</div>
+</div>

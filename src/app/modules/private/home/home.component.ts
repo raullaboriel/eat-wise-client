@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IngredienBase, Meal } from './interfaces/home.interfaces';
+import { Meal } from './interfaces/home.interfaces';
 import { HomeService } from './services/home.service';
 
 @Component({

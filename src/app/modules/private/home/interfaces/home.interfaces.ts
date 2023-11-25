@@ -33,3 +33,11 @@ export interface Nutrient {
 }
 
 export type Unit = 'g' | 'mg' | 'kcal';
+
+export interface Food {
+    fdcId: number;
+    description: string;
+    foodCategory: string;
+    servingSize: number;
+    servingSizeUnit: string;
+}

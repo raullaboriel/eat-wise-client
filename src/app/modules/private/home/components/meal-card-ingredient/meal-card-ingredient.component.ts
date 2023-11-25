@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IngredienBase, Ingredient } from '../../interfaces/home.interfaces';
-import { HomeService } from '../../services/home.service';
+import { Component, Input } from '@angular/core';
+import { Ingredient } from '../../interfaces/home.interfaces';
 
 @Component({
   selector: 'meal-card-ingredient',

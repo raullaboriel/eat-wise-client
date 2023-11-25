@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ModalToggle } from 'src/app/interfaces/app.interfaces';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FoodService } from '../../services/food.service';
 
 @Component({
   selector: 'add-meal-modal',
@@ -18,5 +18,4 @@ export class AddMealModalComponent {
   ngOnDestroy() {
     this.visibleChange.unsubscribe();
   }
-
 }
