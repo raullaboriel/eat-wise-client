@@ -4,4 +4,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .result {
+        cursor: pointer;
+        border-top: 1px solid var(--surface-200);
+    }
+
+    .result:hover {
+        background-color: var(--surface-200);
+    }
 }

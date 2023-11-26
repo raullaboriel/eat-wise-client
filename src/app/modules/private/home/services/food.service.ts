@@ -37,17 +37,62 @@ export class FoodService {
     return this.http.get(`${FDC_BASE_URL}/foods/search`, {
       params: {
         api_key: FDC_API_KEY,
+        dataType: 'Branded,Foundation,Survey (FNDDS)',
         ...params
       }
     }).pipe(
       map((element: any): Food[] => {
-        return element.foods.map((food: any): Food => ({
-          fdcId: food.fdcId,
-          description: food.description,
-          foodCategory: food.foodCategory,
-          servingSize: food.servingSize || 0,
-          servingSizeUnit: food.servingSizeUnit
-        }))
+
+
+
+        return element.foods.map((food: any): Food => {
+          const ingredientNutrientsMap = new Map<string, { amount: number; unit: string }>();
+
+          food?.foodNutrients?.forEach((element: any) => {
+            ingredientNutrientsMap.set(element.nutrientNumber, {
+              amount: element.value,
+              unit: element.unitName
+            });
+          });
+
+          return {
+            fdcId: food.fdcId,
+            description: food.description,
+            foodCategory: food.foodCategory,
+            servingSize: food.servingSize,
+            servingSizeUnit: food.servingSizeUnit,
+            nutrients: [
+              {
+                id: '208',
+                name: 'Calorias',
+                amount: ingredientNutrientsMap.get('208')?.amount || 0,
+                unit: 'kcal',
+                icon: 'fire',
+              },
+              {
+                id: '205',
+                name: 'Carbohidratos',
+                amount: ingredientNutrientsMap.get('205')?.amount || 0,
+                unit: 'g',
+                icon: 'bowl-rice'
+              },
+              {
+                id: '203',
+                name: 'Proteinas',
+                amount: ingredientNutrientsMap.get('203')?.amount || 0,
+                unit: 'g',
+                icon: 'dna'
+              },
+              {
+                id: '269',
+                name: 'Azucares',
+                amount: ingredientNutrientsMap.get('269')?.amount || 0,
+                unit: 'g',
+                icon: 'cubes-stacked'
+              }
+            ]
+          }
+        })
       })
     )
   }

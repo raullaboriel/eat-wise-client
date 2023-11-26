@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL, FDC_API_KEY, FDC_BASE_URL } from 'src/app/config/constants/config.constants';
-import { IngredienBase, Ingredient, Meal } from '../interfaces/home.interfaces';
+import { IngredienBase, Ingredient, Meal, MealDto } from '../interfaces/home.interfaces';
 import { Observable, forkJoin, map, mergeMap } from 'rxjs';
 
 @Injectable({
@@ -43,6 +43,14 @@ export class HomeService {
     );
   }
 
+  addMeal(meal: MealDto): Observable<number> {
+    return this.http.post(`${BASE_URL}/meals`, meal, {
+      withCredentials: true
+    }).pipe(
+      map((meal: any) => meal._id)
+    )
+  }
+
   getMealIngredient(ingredient: IngredienBase): Observable<Ingredient> {
     return this.http.get(`${FDC_BASE_URL}/food/${ingredient.fdcId}`, {
       params: {
@@ -63,25 +71,37 @@ export class HomeService {
           return {
             ...ingredient,
             description: element.description,
-            servingSize: element.servingSize || 0,
-            nutrients: {
-              calories: {
+            servingSize: element.servingSize,
+            nutrients: [
+              {
+                id: '208',
+                name: 'Calorias',
                 amount: ingredientNutrientsMap.get('208')?.amount || 0,
-                unit: 'kcal'
+                unit: 'kcal',
+                icon: 'fire',
               },
-              carbohydrates: {
+              {
+                id: '205',
+                name: 'Carbohidratos',
                 amount: ingredientNutrientsMap.get('205')?.amount || 0,
-                unit: 'g'
+                unit: 'g',
+                icon: 'bowl-rice'
               },
-              proteins: {
+              {
+                id: '203',
+                name: 'Proteinas',
                 amount: ingredientNutrientsMap.get('203')?.amount || 0,
-                unit: 'g'
+                unit: 'g',
+                icon: 'dna'
               },
-              sugars: {
+              {
+                id: '269',
+                name: 'Azucares',
                 amount: ingredientNutrientsMap.get('269')?.amount || 0,
-                unit: 'g'
+                unit: 'g',
+                icon: 'cubes-stacked'
               }
-            }
+            ]
           }
         })
       )

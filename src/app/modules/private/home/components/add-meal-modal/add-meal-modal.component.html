@@ -1,4 +1,50 @@
 <p-dialog header="Agregar comida" [dismissableMask]="true" [(visible)]="visible" (onHide)="onClose()"
     [draggable]="false" [modal]="true" [style]="{width: '50vw'}" class="p-shadow-none">
-    <food-search />
+    <food-search [selectedFoods]="selectedFoods" (selectedFoodsChange)="selectedFoods = $event" />
+    <div class="flex flex-column selected-foods w-full gap-5 px-3">
+        <div class="flex gap-2" *ngFor="let food of selectedFoods">
+            <div class="flex flex-column text-truncate w-full gap-2">
+                <span class="text-truncate font-bold">{{food.description}}</span>
+                <div class="flex flex-column gap-0">
+                    <div class="text-600" *ngFor="let nutrient of food.nutrients">
+                        <label>
+                            {{(getNutrientsProportion(food, nutrient)).toFixed(2)}}
+                            {{nutrient.unit}}
+                            <span>
+                                {{nutrient.name}}
+                                <i class="fa-solid fa-{{nutrient.icon}} ml-2"></i>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!food.servingSize" class="flex flex-column align-items-end">
+                <span>{{food.servingSize}}</span>
+                <div class="flex border-1 border-round align-items-center justify-content-between food-quantity-input">
+                    <div class="p-1 px-3 border-round" (click)="changeFoodQuantity(food, -1)">
+                        <i *ngIf="food.quantity === 1" class="fa-solid fa-trash text-color"></i>
+                        <i *ngIf="food.quantity > 1" class="fa-solid fa-minus text-color"></i>
+                    </div>
+                    <span>{{food.quantity}}</span>
+                    <div class="p-1 px-3 border-round styled-box-green" (click)="changeFoodQuantity(food, 1)">
+                        <i class="fa-solid fa-plus text-color"></i>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="food.servingSize" class="card flex justify-content-center">
+                <div class="flex flex-column gap-1">
+                    <div class="flex gap-2 align-items-center">
+                        <div class="flex align-items-center">
+                            <div (click)="unselectFood(food)" class="p-2 remove-food-button">
+                                <i class="fa-solid fa-times text-red-600"></i>
+                            </div>
+                            <input type="number" pInputText [(ngModel)]="food.quantity" class="w-full" />
+                        </div>
+                        <span>g</span>
+                    </div>
+                    <p-slider [(ngModel)]="food.quantity" class="w-full"></p-slider>
+                </div>
+            </div>
+        </div>
+    </div>
 </p-dialog>

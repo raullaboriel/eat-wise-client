@@ -12,6 +12,9 @@ import { DialogModule } from 'primeng/dialog';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SliderModule } from 'primeng/slider';
 
 import { FormsModule } from '@angular/forms';
 import { HomeService } from './services/home.service';
@@ -59,6 +62,9 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
     VirtualScrollerModule,
     InfiniteScrollModule,
     InputTextModule,
+    DropdownModule,
+    ProgressSpinnerModule,
+    SliderModule,
     NgCircleProgressModule.forRoot({
       radius: 60,
       space: -10,

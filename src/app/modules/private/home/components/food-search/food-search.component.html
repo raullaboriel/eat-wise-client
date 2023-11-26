@@ -1,20 +1,18 @@
-<span class="p-input-icon-left my-1">
+<span (click)="!op.overlayVisible && op.toggle($event, targetEl)" #targetEl class="p-input-icon-left my-1">
     <i class="pi pi-search"></i>
     <input type="text" pInputText (ngModelChange)="onQueryChange($event)" [(ngModel)]="query" />
 </span>
-<div class="search-results flex flex-column gap-3" infiniteScroll [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="500" (scrolled)="onScroll()" [scrollWindow]="false">
-    <div class="flex flex-column w-full" *ngFor="let food of foods">
-        <div class="flex justify-content-between align-content-center w-full">
-            <div class="flex flex-column gap-2">
-                <span class="font-bold text-truncate">{{food.description}}</span>
-                <span>{{food.foodCategory}}</span>
-            </div>
-            <div>
-                {{food.fdcId}}
+<p-overlayPanel [style]="{'width': '450px'}" #op>
+    <div class="search-results flex flex-column " infiniteScroll [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="500" (scrolled)="onScroll()" [scrollWindow]="false">
+        <div class="flex flex-column w-full" *ngFor="let food of foods">
+            <div (click)="selectFood(food)" class="flex justify-content-between align-content-center w-full result p-2">
+                <div class="flex flex-column gap-2">
+                    <span class="font-bold text-truncate">{{food.description}}</span>
+                    <span>{{food.foodCategory}}</span>
+                </div>
             </div>
         </div>
+        <div *ngIf="isLoading">Cargando...</div>
     </div>
-
-    <div *ngIf="isLoading">Loading...</div>
-</div>
+</p-overlayPanel>

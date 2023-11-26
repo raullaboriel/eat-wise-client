@@ -21,11 +21,12 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private homeService: HomeService) {
+    this.meals = [];
   }
 
   ngOnInit(): void {
     this.homeService.getMeals().subscribe((data) => {
-      this.meals = [...data];
+      this.meals = data;
       this.isLoading = false;
     });
   }

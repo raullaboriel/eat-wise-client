@@ -1,0 +1,19 @@
+.selected-foods {
+    height: 500px;
+    overflow-y: auto;
+}
+
+.food-quantity-input {
+    >div {
+        cursor: pointer;
+        margin: 3px;
+    }
+
+    >div:hover {
+        background-color: var(--surface-100);
+    }
+}
+
+.remove-food-button {
+    cursor: pointer;
+}

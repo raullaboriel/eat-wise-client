@@ -10,6 +10,11 @@ export interface Meal {
     ingredients: Ingredient[];
 }
 
+export interface MealDto {
+    date: Date;
+    ingredients: IngredienBase[];
+}
+
 export interface IngredienBase {
     id: string;
     fdcId: number;
@@ -18,18 +23,16 @@ export interface IngredienBase {
 
 export interface Ingredient extends IngredienBase {
     description: string;
-    servingSize: number;
-    nutrients: {
-        calories: Nutrient;
-        carbohydrates: Nutrient;
-        proteins: Nutrient;
-        sugars: Nutrient;
-    }
+    servingSize?: number;
+    nutrients: Nutrient[];
 }
 
 export interface Nutrient {
+    id: string;
+    name: string;
     amount: number;
     unit: Unit;
+    icon: string;
 }
 
 export type Unit = 'g' | 'mg' | 'kcal';
@@ -38,6 +41,12 @@ export interface Food {
     fdcId: number;
     description: string;
     foodCategory: string;
-    servingSize: number;
+    servingSize?: number;
     servingSizeUnit: string;
+    nutrients: Nutrient[];
+}
+
+export interface SelectedFood extends Food {
+    servingSize?: number; // in grams
+    quantity: number; // in units
 }
