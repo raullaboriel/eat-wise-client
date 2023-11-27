@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FoodService } from '../../services/food.service';
-import { Food, Nutrient, SelectedFood } from '../../interfaces/home.interfaces';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Ingredient, Meal, Nutrient, SelectedFood } from '../../interfaces/home.interfaces';
+import { HomeService } from '../../services/home.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'add-meal-modal',
@@ -10,12 +11,18 @@ import { Food, Nutrient, SelectedFood } from '../../interfaces/home.interfaces';
 export class AddMealModalComponent {
   @Input() visible!: boolean;
   @Output() visibleChange = new EventEmitter();
+  @Output() addMeal: EventEmitter<Meal> = new EventEmitter<Meal>();
+
+  isSavingMeal: boolean = false;
 
   selectedFoods: SelectedFood[] = [];
 
   nutrientsTotalsMap: Map<string, number> = new Map();
 
-  constructor() { }
+  constructor(
+    private homeService: HomeService,
+    private messageService: MessageService
+  ) { }
 
   ngOnChange(): void {
     this.selectedFoods.forEach(food => {
@@ -44,6 +51,51 @@ export class AddMealModalComponent {
       }
 
       return selectedFood;
+    })
+  }
+
+  saveMeal() {
+    this.isSavingMeal = true;
+    this.homeService.addMeal({
+      ingredients: this.selectedFoods.map(food => {
+        return {
+          fdcId: food.fdcId,
+          amount: food.quantity,
+        }
+      })
+    }).subscribe((addedMeal) => {
+      this.addMeal.emit({
+        id: addedMeal.id,
+        date: addedMeal.date,
+        ingredients: addedMeal.ingredients.map((ingredient): Ingredient => {
+          const mealIngredientsDetailsMap: Map<number, SelectedFood> = new Map();
+
+          this.selectedFoods.forEach(food => {
+            mealIngredientsDetailsMap.set(food.fdcId, food);
+          });
+
+          return {
+            id: ingredient.id,
+            fdcId: ingredient.fdcId,
+            amount: ingredient.amount,
+            description: mealIngredientsDetailsMap.get(ingredient.fdcId)?.description || '',
+            nutrients: mealIngredientsDetailsMap.get(ingredient.fdcId)?.nutrients || [],
+            servingSize: mealIngredientsDetailsMap.get(ingredient.fdcId)?.servingSize
+          }
+        })
+      });
+
+      this.visibleChange.emit(false);
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Comida guardada',
+        detail: 'Comida guardada con éxito'
+      });
+
+      this.selectedFoods = [];
+      this.isSavingMeal = false;
+      this.nutrientsTotalsMap = new Map();
     })
   }
 

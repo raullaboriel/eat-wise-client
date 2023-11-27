@@ -23,6 +23,7 @@ import { MealCardIngredientComponent } from './components/meal-card-ingredient/m
 import { MealCardSkeletonComponent } from './components/meal-card-skeleton/meal-card-skeleton.component';
 import { MealCardIngredientSkeletonComponent } from './components/meal-card-ingredient-skeleton/meal-card-ingredient-skeleton.component';
 import { AddMealModalComponent } from './components/add-meal-modal/add-meal-modal.component';
+import { MessageService } from 'primeng/api';
 
 import { HomeComponent } from './home.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -44,7 +45,8 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
   ],
   providers: [
     HomeService,
-    FoodService
+    FoodService,
+    MessageService
   ],
   imports: [
     CommonModule,

@@ -42,7 +42,7 @@
             <meal-card-skeleton />
             <meal-card-skeleton />
         </ng-container>
-        <home-meal-card [meal]="meal" *ngFor=" let meal of meals" />
+        <home-meal-card (deleteMeal)="deleteMeal($event)" [meal]="meal" *ngFor=" let meal of meals" />
     </div>
 </div>
-<add-meal-modal [visible]="isAddMealModalVisible" (visibleChange)="onDialogClose($event)" />
+<add-meal-modal (addMeal)="addMeal($event)" [visible]="isAddMealModalVisible" (visibleChange)="onDialogClose($event)" />

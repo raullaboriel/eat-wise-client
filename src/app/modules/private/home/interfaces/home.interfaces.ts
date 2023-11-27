@@ -11,8 +11,8 @@ export interface Meal {
 }
 
 export interface MealDto {
-    date: Date;
-    ingredients: IngredienBase[];
+    date?: Date;
+    ingredients: Omit<IngredienBase, 'id'>[];
 }
 
 export interface IngredienBase {

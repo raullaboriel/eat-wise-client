@@ -4,4 +4,6 @@
         <meal-card-ingredient [ingredient]="ingredient" [meal]="meal" [nutrientsTotalsMap]="nutrientsTotalsMap"
             *ngFor="let ingredient of meal.ingredients" />
     </div>
+    <button pButton type="button" (click)="deleteMeal.emit(meal.id)" icon="fa fa-trash"
+        class="p-button-text text-red-600"></button>
 </p-card>

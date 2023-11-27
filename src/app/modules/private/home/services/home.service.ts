@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL, FDC_API_KEY, FDC_BASE_URL } from 'src/app/config/constants/config.constants';
-import { IngredienBase, Ingredient, Meal, MealDto } from '../interfaces/home.interfaces';
+import { IngredienBase, Ingredient, Meal, MealDto, ResponseMeal } from '../interfaces/home.interfaces';
 import { Observable, forkJoin, map, mergeMap } from 'rxjs';
 
 @Injectable({
@@ -43,11 +43,31 @@ export class HomeService {
     );
   }
 
-  addMeal(meal: MealDto): Observable<number> {
+  addMeal(meal: MealDto): Observable<ResponseMeal> {
     return this.http.post(`${BASE_URL}/meals`, meal, {
       withCredentials: true
     }).pipe(
-      map((meal: any) => meal._id)
+      map((meal: any) => {
+        return {
+          id: meal._id,
+          date: new Date(meal.date),
+          ingredients: meal.ingredients.map((ingredient: any): IngredienBase => ({
+            id: ingredient._id,
+            fdcId: ingredient.fdcId,
+            amount: ingredient.amount
+          }))
+        }
+      })
+    )
+  }
+
+  deleteMeal(id: string): Observable<string> {
+    return this.http.delete(`${BASE_URL}/meals/${id}`, {
+      withCredentials: true
+    }).pipe(
+      map((meal: any) => {
+        return meal._id
+      })
     )
   }
 

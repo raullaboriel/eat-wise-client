@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Meal } from '../../interfaces/home.interfaces';
 
 @Component({
@@ -8,6 +8,8 @@ import { Meal } from '../../interfaces/home.interfaces';
 })
 export class MealCardComponent implements OnInit {
   @Input() meal!: Meal;
+  @Output() deleteMeal: EventEmitter<string> = new EventEmitter<string>();
+
   nutrientsTotalsMap: Map<string, number> = new Map();
 
   constructor() { }

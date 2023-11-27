@@ -47,4 +47,12 @@
             </div>
         </div>
     </div>
+    <p-footer>
+        <div class="flex justify-content-end">
+            <button pButton [disabled]="isSavingMeal" (click)="onClose()" type="button" label="Cancelar"
+                icon="pi pi-times" class="p-button-text text-600"></button>
+            <button pButton [disabled]="isSavingMeal" (click)="saveMeal()" type="button" label="Confirmar"
+                icon="pi pi-check" class="p-button-text"></button>
+        </div>
+    </p-footer>
 </p-dialog>
