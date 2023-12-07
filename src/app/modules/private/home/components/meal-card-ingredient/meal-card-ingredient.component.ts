@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Ingredient, Meal } from '../../interfaces/home.interfaces';
+import { Ingredient, Meal, Nutrient } from '../../interfaces/home.interfaces';
 
 @Component({
   selector: 'meal-card-ingredient',
@@ -10,4 +10,5 @@ export class MealCardIngredientComponent {
   @Input() ingredient!: Ingredient;
   @Input() meal!: Meal;
   @Input() nutrientsTotalsMap!: Map<string, number>;
+  @Input() getNutrientsProportion!: (ingredient: Ingredient, nutrient: Nutrient) => number;
 }

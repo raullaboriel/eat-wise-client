@@ -1,5 +1,5 @@
-<p-dialog header="Agregar comida" [dismissableMask]="true" [(visible)]="visible" (onHide)="onClose()"
-    [draggable]="false" [modal]="true" [style]="{width: '50vw'}" class="p-shadow-none">
+<p-dialog header="Editar comida" [dismissableMask]="true" [(visible)]="visible" (onHide)="onClose()" [draggable]="false"
+    [modal]="true" [style]="{width: '50vw'}" class="p-shadow-none">
     <food-search [selectedFoods]="selectedFoods" (selectedFoodsChange)="selectedFoods = $event" />
     <div class="flex flex-column selected-foods w-full gap-5 px-3">
         <div class="flex gap-2" *ngFor="let food of selectedFoods">
@@ -40,7 +40,7 @@
                             </div>
                             <input type="number" pInputText [(ngModel)]="food.quantity" class="w-full" />
                         </div>
-                        <span>{{food.servingSizeUnit}}</span>
+                        <span>g</span>
                     </div>
                     <p-slider [(ngModel)]="food.quantity" class="w-full"></p-slider>
                 </div>
@@ -49,9 +49,9 @@
     </div>
     <p-footer>
         <div class="flex justify-content-end">
-            <button pButton [disabled]="isSavingMeal" (click)="onClose()" type="button" label="Cancelar"
+            <button pButton [disabled]="isSavingChanges" (click)="onClose()" type="button" label="Cancelar"
                 icon="pi pi-times" class="p-button-text text-600"></button>
-            <button pButton [disabled]="isSavingMeal" (click)="saveMeal()" type="button" label="Confirmar"
+            <button pButton [disabled]="isSavingChanges" (click)="saveChanges()" type="button" label="Confirmar"
                 icon="pi pi-check" class="p-button-text"></button>
         </div>
     </p-footer>

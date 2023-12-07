@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL, FDC_API_KEY, FDC_BASE_URL } from 'src/app/config/constants/config.constants';
-import { IngredienBase, Ingredient, Meal, MealDto, ResponseMeal } from '../interfaces/home.interfaces';
-import { Observable, forkJoin, map, mergeMap } from 'rxjs';
+import { IngredienBase, Ingredient, Meal, AddMealDto, ResponseMeal, EditMealDto } from '../interfaces/home.interfaces';
+import { Observable, forkJoin, map, mergeMap, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +15,19 @@ export class HomeService {
       withCredentials: true
     })
       .pipe(
-        mergeMap(meals =>
-          forkJoin(
-            meals.map(meal =>
-              this.getMealWithIngredients(meal)
-            )
-          )
-        )
-      )
+        mergeMap(meals => {
+          if (meals.length === 0) {
+            // If meals array is empty, emit an empty array directly
+            return of([]);
+          } else {
+            // Otherwise, proceed with forkJoin
+            return forkJoin(
+              meals.map(meal => this.getMealWithIngredients(meal))
+            );
+          }
+        })
+      );
   }
-
   private getMealWithIngredients(meal: any): Observable<Meal> {
     return forkJoin<Ingredient[]>(
       meal.ingredients.map((ingredient: any) =>
@@ -43,7 +46,25 @@ export class HomeService {
     );
   }
 
-  addMeal(meal: MealDto): Observable<ResponseMeal> {
+  editMeal(meal: EditMealDto): Observable<ResponseMeal> {
+    return this.http.put(`${BASE_URL}/meals`, meal, {
+      withCredentials: true
+    }).pipe(
+      map((meal: any) => {
+        return {
+          id: meal._id,
+          date: new Date(meal.date),
+          ingredients: meal.ingredients.map((ingredient: any): IngredienBase => ({
+            id: ingredient._id,
+            fdcId: ingredient.fdcId,
+            amount: ingredient.amount
+          }))
+        }
+      })
+    )
+  }
+
+  addMeal(meal: AddMealDto): Observable<ResponseMeal> {
     return this.http.post(`${BASE_URL}/meals`, meal, {
       withCredentials: true
     }).pipe(
@@ -92,6 +113,8 @@ export class HomeService {
             ...ingredient,
             description: element.description,
             servingSize: element.servingSize,
+            foodCategory: element.foodCategory,
+            servingSizeUnit: element.servingSizeUnit,
             nutrients: [
               {
                 id: '208',

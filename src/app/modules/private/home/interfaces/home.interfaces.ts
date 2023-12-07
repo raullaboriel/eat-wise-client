@@ -10,7 +10,13 @@ export interface Meal {
     ingredients: Ingredient[];
 }
 
-export interface MealDto {
+export interface AddMealDto {
+    date?: Date;
+    ingredients: Omit<IngredienBase, 'id'>[];
+}
+
+export interface EditMealDto {
+    _id: string;
     date?: Date;
     ingredients: Omit<IngredienBase, 'id'>[];
 }
@@ -23,6 +29,8 @@ export interface IngredienBase {
 
 export interface Ingredient extends IngredienBase {
     description: string;
+    foodCategory: string;
+    servingSizeUnit: string;
     servingSize?: number;
     nutrients: Nutrient[];
 }
@@ -47,6 +55,12 @@ export interface Food {
 }
 
 export interface SelectedFood extends Food {
+    servingSize?: number; // in grams
+    quantity: number; // in units
+}
+
+export interface SelectedFoodWithId extends Food {
+    id: string;
     servingSize?: number; // in grams
     quantity: number; // in units
 }

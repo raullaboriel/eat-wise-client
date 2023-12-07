@@ -1,35 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Ingredient, Meal, Nutrient, SelectedFood } from '../../interfaces/home.interfaces';
 import { HomeService } from '../../services/home.service';
-import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'add-meal-modal',
-  templateUrl: './add-meal-modal.component.html',
-  styleUrls: ['./add-meal-modal.component.scss']
+  selector: 'app-edit-meal-modal',
+  templateUrl: './edit-meal-modal.component.html',
+  styleUrls: ['./edit-meal-modal.component.scss']
 })
-export class AddMealModalComponent {
+export class EditMealModalComponent {
   @Input() visible!: boolean;
-  @Output() visibleChange = new EventEmitter();
-  @Output() addMeal: EventEmitter<Meal> = new EventEmitter<Meal>();
+  @Output() visibleChange = new EventEmitter<boolean>();
+  @Input() meal!: Meal;
+  @Output() editMeal: EventEmitter<Meal> = new EventEmitter<Meal>();
 
-  isSavingMeal: boolean = false;
+  isSavingChanges = false;
+
+  constructor(private homeService: HomeService) { }
 
   selectedFoods: SelectedFood[] = [];
 
-  nutrientsTotalsMap: Map<string, number> = new Map();
+  getNutrientsProportion(food: SelectedFood, nutrient: Nutrient) {
+    const amount = (nutrient.amount / (food.servingSize || 1)) * food.quantity;
 
-  constructor(
-    private homeService: HomeService,
-    private messageService: MessageService
-  ) { }
-
-  ngOnChange(): void {
-    this.selectedFoods.forEach(food => {
-      food.nutrients.forEach(nutrient => {
-        this.nutrientsTotalsMap.set(nutrient.id, (this.nutrientsTotalsMap.get(nutrient.id) || 0) + nutrient.amount);
-      });
-    });
+    return amount;
   }
 
   unselectFood(food: SelectedFood) {
@@ -54,9 +47,10 @@ export class AddMealModalComponent {
     })
   }
 
-  saveMeal() {
-    this.isSavingMeal = true;
-    this.homeService.addMeal({
+  saveChanges() {
+    this.isSavingChanges = true;
+    this.homeService.editMeal({
+      _id: this.meal.id,
       ingredients: this.selectedFoods.map(food => {
         return {
           fdcId: food.fdcId,
@@ -64,7 +58,7 @@ export class AddMealModalComponent {
         }
       })
     }).subscribe((addedMeal) => {
-      this.addMeal.emit({
+      this.editMeal.emit({
         id: addedMeal.id,
         date: addedMeal.date,
         ingredients: addedMeal.ingredients.map((ingredient): Ingredient => {
@@ -89,22 +83,9 @@ export class AddMealModalComponent {
 
       this.visibleChange.emit(false);
 
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Comida guardada',
-        detail: 'Comida guardada con éxito'
-      });
-
       this.selectedFoods = [];
-      this.isSavingMeal = false;
-      this.nutrientsTotalsMap = new Map();
+      this.isSavingChanges = false;
     })
-  }
-
-  getNutrientsProportion(food: SelectedFood, nutrient: Nutrient) {
-    const amount = (nutrient.amount / (food.servingSize || 1)) * food.quantity;
-
-    return amount;
   }
 
   onClose() {
@@ -114,5 +95,20 @@ export class AddMealModalComponent {
   // Work against memory leak if component is destroyed
   ngOnDestroy() {
     this.visibleChange.unsubscribe();
+  }
+
+  ngOnChanges() {
+    this.selectedFoods = [];
+    this.meal.ingredients.forEach(ingredient => {
+      this.selectedFoods.push({
+        fdcId: ingredient.fdcId,
+        quantity: ingredient.amount,
+        servingSize: ingredient.servingSize,
+        description: ingredient.description,
+        nutrients: ingredient.nutrients,
+        foodCategory: ingredient.foodCategory,
+        servingSizeUnit: ingredient.servingSizeUnit
+      })
+    });
   }
 }

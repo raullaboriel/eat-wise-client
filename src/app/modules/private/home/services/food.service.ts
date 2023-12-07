@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BASE_URL, FDC_API_KEY, FDC_BASE_URL } from 'src/app/config/constants/config.constants';
-import { Food, IngredienBase, Ingredient, Meal } from '../interfaces/home.interfaces';
-import { Observable, forkJoin, map, mergeMap } from 'rxjs';
+import { FDC_API_KEY, FDC_BASE_URL } from 'src/app/config/constants/config.constants';
+import { Food } from '../interfaces/home.interfaces';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

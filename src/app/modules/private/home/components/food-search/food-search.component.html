@@ -7,7 +7,7 @@
         [infiniteScrollThrottle]="500" (scrolled)="onScroll()" [scrollWindow]="false">
         <div class="flex flex-column w-full" *ngFor="let food of foods">
             <div (click)="selectFood(food)" class="flex justify-content-between align-content-center w-full result p-2">
-                <div class="flex flex-column gap-2">
+                <div class="flex flex-column gap-2 text-truncate">
                     <span class="font-bold text-truncate">{{food.description}}</span>
                     <span>{{food.foodCategory}}</span>
                 </div>

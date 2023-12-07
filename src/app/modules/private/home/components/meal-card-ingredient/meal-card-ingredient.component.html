@@ -1,12 +1,13 @@
 <p-chip label="{{ingredient.description}}" (click)="op.toggle($event)"></p-chip>
 <p-overlayPanel #op>
+    <h3 class="m-0 mb-2">{{ingredient.amount}} {{ingredient.servingSizeUnit || 'Unidades'}}:</h3>
     <div class="flex flex-column gap-2" *ngFor="let nutrient of ingredient.nutrients">
         <div class="flex align-items-center gap-2">
             <p-knob id="Calorias-knob"
-                [ngModel]="((nutrient.amount/nutrientsTotalsMap.get(nutrient.id)!)*100).toFixed(2)" [readonly]="true"
-                [size]="50" />
+                [ngModel]="((getNutrientsProportion(ingredient, nutrient)/nutrientsTotalsMap.get(nutrient.id)!)*100).toFixed(2)"
+                [readonly]="true" [size]="55" valueTemplate="{value}%" [strokeWidth]="5" />
             <label>
-                {{nutrient.amount}}
+                {{getNutrientsProportion(ingredient, nutrient).toFixed(2)}}
                 {{nutrient.unit}}
                 <span>{{nutrient.name}}<i class="fa-solid fa-{{nutrient.icon}} ml-2"></i></span>
             </label>

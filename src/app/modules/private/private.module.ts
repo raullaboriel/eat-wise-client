@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PrivateComponent } from './private.component';
 import { HomeModule } from './home/home.module';
 import { RouterOutlet } from '@angular/router';
+import { PrivateRoutingModule } from './private-routing.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { RouterOutlet } from '@angular/router';
   imports: [
     CommonModule,
     HomeModule,
-    RouterOutlet
+    RouterOutlet,
+    PrivateRoutingModule,
   ]
 })
 export class PrivateModule { }

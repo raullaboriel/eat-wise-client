@@ -6,7 +6,6 @@ import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { SkeletonModule } from 'primeng/skeleton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KnobModule } from 'primeng/knob';
 import { DialogModule } from 'primeng/dialog';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
@@ -32,6 +31,7 @@ import { FoodSearchComponent } from './components/food-search/food-search.compon
 import { FoodService } from './services/food.service';
 
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { EditMealModalComponent } from './components/edit-meal-modal/edit-meal-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
     AddMealModalComponent,
     HomeComponent,
     FoodSearchComponent,
+    EditMealModalComponent
   ],
   providers: [
     HomeService,
@@ -54,7 +55,6 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
     ButtonModule,
     ChipModule,
     OverlayPanelModule,
-    BrowserAnimationsModule,
     KnobModule,
     FormsModule,
     HttpClientModule,

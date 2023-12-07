@@ -1,0 +1,33 @@
+<div class="login-container">
+    <div>
+        <h1>
+            Todo acerca de <span id="healthy">nutrición</span>
+        </h1>
+        <div class="login">
+            <p-card class="flex h-full">
+                <div [formGroup]="loginForm" class="flex flex-column gap-5">
+                    <span class="p-float-label flex">
+                        <input pInputText class="w-full" id="username" formControlName="username" />
+                        <label htmlFor="username">Usuario</label>
+                    </span>
+                    <span class="p-float-label flex">
+                        <p-password formControlName="password" [style]="{'width':'100%'}" class="w-full"
+                            [feedback]="false" [toggleMask]="true"></p-password>
+                        <label htmlFor="password">Contraseña</label>
+                    </span>
+                </div>
+                <small *ngIf="errorMessage" class="text-red-600">{{errorMessage}}</small>
+                <ng-template pTemplate="footer">
+                    <p-button (onClick)="login()" [disabled]="isLogging" label="Iniciar sesión">
+                        <i *ngIf="isLogging" class="fa-solid fa-spinner fa-spin"></i>
+                    </p-button>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+    <img id="main-image" src="../../../../assets/images/healthy-breakfast-bowl.jpg" alt="image">
+    <img id="pineapple" src="../../../../assets/images/pineapple-slice.png" alt="image">
+    <img id="carrot" src="../../../../assets/images/carrot.png" alt="image">
+    <img id="strawberry" src="../../../../assets/images/strawberry.png" alt="image">
+    <img id="kiwi" src="../../../../assets/images/kiwi-fruit-cutout-file.png" alt="image">
+</div>

@@ -1,9 +1,16 @@
-<p-card header="{{nutrientsTotalsMap.get('208')}} Calorias" class="border-round-xl meal-card"
-    [style]="{ width: '360px', height: '100%' }">
-    <div class="flex flex-wrap gap-2 ingredients">
-        <meal-card-ingredient [ingredient]="ingredient" [meal]="meal" [nutrientsTotalsMap]="nutrientsTotalsMap"
-            *ngFor="let ingredient of meal.ingredients" />
+<p-card header="{{roundNumber(mealNutrientsTotalsMap.get('208') || 0)}} Calorias" class="border-round-xl meal-card"
+    [style]="{ width: '360px', minHeight: 166, height: '100%' }">
+    <div class="flex flex-column w-full h-full justify-content-between">
+        <div class="flex flex-wrap gap-2 ingredients">
+            <meal-card-ingredient [ingredient]="ingredient" [meal]="meal"
+                [getNutrientsProportion]="getNutrientsProportion" [nutrientsTotalsMap]="mealNutrientsTotalsMap"
+                *ngFor="let ingredient of meal.ingredients" />
+        </div>
+        <div class="flex">
+            <button pButton type="button" (click)="deleteMeal.emit(meal.id)" icon="fa fa-trash"
+                class="p-button-text text-red-600"></button>
+            <button pButton type="button" (click)="handleEditMeal.emit(meal)" icon="fa fa-edit"
+                class="p-button-text text-blue-600"></button>
+        </div>
     </div>
-    <button pButton type="button" (click)="deleteMeal.emit(meal.id)" icon="fa fa-trash"
-        class="p-button-text text-red-600"></button>
 </p-card>
